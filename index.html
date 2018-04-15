@@ -55,6 +55,20 @@
 
 // Map the cities I have lived in!
             d3.csv("26citiesWithLatitudeLongitude.csv").then(function(data) {
+                d3.json("cityPrices.json").then(function(json){
+                    for (var i = 0; i < data.length; i++) {
+                        var city = data[i].City;
+                        for (var j = 0; j < json.length; j++) {
+                            var cityJson = json[j];
+                            console.log(cityJson.name);
+                            console.log(cityJson.name.split(','));
+                            if (city === cityJson.name.split(',')[0]){
+                                console.log(city);
+                                console.log(cityJson.prices[0].item_name);
+							}
+						}
+					}
+				});
 
                 svg.selectAll("circle")
                     .data(data)
