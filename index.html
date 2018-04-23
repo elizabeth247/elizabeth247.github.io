@@ -3,6 +3,32 @@
 <head>
 	<meta charset="utf-8">
 	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<style type="text/css">
+
+		/* On mouse hover, lighten state color */
+		path:hover {
+			fill-opacity: .7;
+		}
+
+		/* Style for Custom Tooltip */
+		div.tooltip {
+			position: absolute;
+			text-align: center;
+			width: 100px;
+			height: 50px;
+			padding: 2px;
+			font: 12px sans-serif;
+			background: lightsteelblue;
+			border: 0;
+			border-radius: 8px;
+			pointer-events: none;
+		}
+
+		/* Legend Font Style */
+		body {
+			font: 11px sans-serif;
+		}
+	</style>
 </head>
 <body>
 <p>Hello world</p>
@@ -53,17 +79,17 @@
             });
 
 
-// Map the cities I have lived in!
+			// Map the cities
             d3.csv("26citiesWithLatitudeLongitude.csv").then(function(data) {
                 d3.json("cityPrices.json").then(function(json){
                     for (var i = 0; i < data.length; i++) {
                         var city = data[i].City;
                         for (var j = 0; j < json.length; j++) {
                             var cityJson = json[j];
-                            console.log(cityJson.name);
-                            console.log(cityJson.name.split(','));
+//                            console.log(cityJson.name);
+//                            console.log(cityJson.name.split(','));
                             if (city === cityJson.name.split(',')[0]){
-                                console.log(city);
+//                                console.log(city);
                                 console.log(cityJson.prices[0].item_name);
 							}
 						}
@@ -80,7 +106,7 @@
                     .attr("cy", function(d) {
                         return projection([d.Longitude, d.Latitude])[1];
                     })
-                    .attr("r", function(d) {
+                    .attr("r", function() {
                         return 5;
                     })
                     .style("fill", "rgb(217,91,67)")
@@ -88,21 +114,23 @@
 
         // Modification of custom tooltip code provided by Malcolm Maclean, "D3 Tips and Tricks"
         // http://www.d3noob.org/2013/01/adding-tooltips-to-d3js-graph.html
-//                    .on("mouseover", function(d) {
-//                        div.transition()
-//                            .duration(200)
-//                            .style("opacity", .9);
-//                        div.text(d.place)
-//                            .style("left", (d3.event.pageX) + "px")
-//                            .style("top", (d3.event.pageY - 28) + "px");
-//                    })
-//
-//                    // fade out tooltip on mouse out
-//                    .on("mouseout", function(d) {
-//                        div.transition()
-//                            .duration(500)
-//                            .style("opacity", 0);
-//                    });
+                    .on("mouseover", function(d) {
+                        div.transition()
+                            .duration(200)
+                            .style("opacity", .9);
+                        console.log(d3.event.pageX);
+                        console.log(d3.event.pageY);
+                        div.text(d.City + ", " + d.State)
+                            .style("left", (d3.event.pageX) + "px")
+                            .style("top", (d3.event.pageY - 28) + "px");
+                    })
+
+                    // fade out tooltip on mouse out
+                    .on("mouseout", function(d) {
+                        div.transition()
+                            .duration(500)
+                            .style("opacity", 0);
+                    });
             });
     });
 
