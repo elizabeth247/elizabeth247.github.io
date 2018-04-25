@@ -90,7 +90,7 @@
 //                            console.log(cityJson.name.split(','));
                             if (city === cityJson.name.split(',')[0]){
 //                                console.log(city);
-                                console.log(cityJson.prices[0].item_name);
+                                // console.log(cityJson.prices[0].item_name);
 							}
 						}
 					}
@@ -151,70 +151,100 @@
 <div id="groceries-comparison">
 <p>Moving from [Pittsburgh] to [New York]?</p>
 <select id="inds">
-        <option value="Chicago" selected="selected">Chicago</option>
+        <option value="default" disabled="disabled" selected="selected">Select a city</option>
+        <option value="Chicago" >Chicago</option>
         <option value="New York">New York</option>
         <option value="San Antonio">San Antonio</option>
 </select>
+<input name="visualize" type="button" value="Visualize" onclick="makeGraph()"/>
 <svg class="chart2"></svg>
 
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 
 <script>
 var city1 = "Pittsburgh"; //needs to eventually be assigned from user input
+// var city2 = "New York"; //needs to eventually be assigned from user input
 
-
+// var data2 = []
+groceries = [];
 function getTwoCitiesData(csv,city1,city2){
-    var data2 = []
+    // var data2 = []
     for (var i = 0; i < csv.length; i++) {
         var city = csv[i].City;
         if (city === city1){
-            data2.push(csv[i].Groceries)
+            groceries.push(csv[i].Groceries)
+            // groceries[0] = csv[i].Groceries;
             for (var j = 0; j < csv.length; j++){
                 if (csv[j].City === city2){
-                    data2.push(csv[j].Groceries)
+                    groceries.push(csv[j].Groceries)
+                    // groceries[1] = csv[j].Groceries;
                     // console.log(data[j].Groceries)
                 }
             }
         }
     }
-    return data2;
+    // return data2;
 }
+
+//get grocery values for 2 cities from csv file, append to data2
+// d3.csv("cityCostOfLiving.csv").then(function(data) {
+//     for (var i = 0; i < data.length; i++) {
+//         var city = data[i].City;
+//         if (city === city1){
+//             data2.push(data[i].Groceries)
+//             for (var j = 0; j < data.length; j++){
+//                 if (data[j].City === city2){
+//                     data2.push(data[j].Groceries)
+//                     // console.log(data[j].Groceries)
+//                 }
+//             }
+//         }
+//     }
+
+// });
+// console.log(data2);
+// data2 = [1.1,2.1];
 
 d3.csv("cityCostOfLiving.csv").then(function(data) {
     d3.select('#inds')
         .on("change", function () {
             var sect = document.getElementById("inds");
             var section = sect.options[sect.selectedIndex].value;
-
-            groceries = getTwoCitiesData(data, city1, section);
+            // groceries = [];
+            getTwoCitiesData(data, city1, section);
             console.log(groceries);
 
-            makeGraph(groceries);
+            // makeGraph();
     });
-});
+    });
 
 
-function makeGraph(data2) {
+function makeGraph() {
+    // d3.select(".chart2").remove();
+    // d3.select("groceries-comparison").append(".chart2");
     var width = 420,
     barHeight = 20;
 
-
+    console.log("begin makegraph");
+    console.log(groceries);
     var x = d3.scaleLinear()
-        .domain([0, d3.max(data2)])
+        .domain([0, d3.max(groceries)])
         .range([0, width]);
 
     var chart = d3.select(".chart2")
         .attr("width", width)
-        .attr("height", barHeight * data2.length);
+        .attr("height", barHeight * groceries.length);
 
     var bar = chart.selectAll("g")
-        .data(data2)
+        .data(groceries)
       .enter().append("g")
         .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
 
     bar.append("rect")
+        .transition() //added
         .attr("width", x)
         .attr("height", barHeight - 1);
+
 
     bar.append("text")
         .attr("x", function(d) { return x(d) - 3; })
@@ -223,17 +253,25 @@ function makeGraph(data2) {
         .text(function(d) { return d; });
 
     bar.exit().remove();
+    
+    console.log("end makegraph");
+    console.log(groceries);
+    // groceries = [];
 
-    svg.selectAll("g").data(result, function(d){console.log(d.key); return d.key;})
-        .enter()
-        .append("rect")
-        .attr("width", x)
-        .attr("height", barHeight - 1); 
+
+    // svg.selectAll("g").data(result, function(d){console.log(d.key); return d.key;})
+    //     .enter()
+    //     .append("rect")
+    //     .attr("width", x)
+    //     .attr("height", barHeight - 1); 
       
-    svg.selectAll("g").data(result, function(d){return d.key}).exit().remove()
+    // svg.selectAll("g").data(result, function(d){return d.key}).exit().remove()
 }
+
 
 </script>
 
+
+</div>
 </body>
 </html>
