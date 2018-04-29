@@ -14,8 +14,8 @@
 		div.tooltip {
 			position: absolute;
 			text-align: center;
-			width: 100px;
-			height: 50px;
+			width: 200px;
+			height: 100px;
 			padding: 2px;
 			font: 12px sans-serif;
 			background: lightsteelblue;
@@ -27,6 +27,16 @@
 		/* Legend Font Style */
 		body {
 			font: 11px sans-serif;
+		}
+
+		.chart2 rect {
+			fill: steelblue;
+		}
+
+		.chart2 text {
+			fill: white;
+			font: 10px sans-serif;
+			text-anchor: end;
 		}
 	</style>
 </head>
@@ -86,10 +96,7 @@
                         var city = data[i].City;
                         for (var j = 0; j < json.length; j++) {
                             var cityJson = json[j];
-//                            console.log(cityJson.name);
-//                            console.log(cityJson.name.split(','));
                             if (city === cityJson.name.split(',')[0]){
-//                                console.log(city);
                                 console.log(cityJson.prices[0].item_name);
 							}
 						}
@@ -118,11 +125,29 @@
                         div.transition()
                             .duration(200)
                             .style("opacity", .9);
-                        console.log(d3.event.pageX);
-                        console.log(d3.event.pageY);
-                        div.text(d.City + ", " + d.State)
-                            .style("left", (d3.event.pageX) + "px")
-                            .style("top", (d3.event.pageY - 28) + "px");
+                        var col;
+                        var colr;
+                        d3.csv("cityCostOfLiving.csv", function(colData) {
+                            console.log(colData);
+                            for (var i = 0; i < colData.length; i++) {
+                                console.log("in loop");
+                                console.log(colData[i].City);
+                                if (d.City === colData[i].City) {
+                                    console.log(d.City);
+                                    console.log(colData[i].City);
+                                    col = colData[i].CostOfLivingIdx;
+                                    colr = colData[i].CostOfLivingRentIdx;
+                                    break;
+                                }
+                            }
+                        });
+						console.log(col);
+                        div.style("left", (d3.event.pageX) + "px")
+                            .style("top", (d3.event.pageY - 28) + "px")
+                            .style("font-size", "14px")
+                            .html("<strong>"+ d.City + ", " + d.State + "</strong><br><br>"
+                                + "Cost of Living Index: " + col + "<br>"
+								+ "Cost of Living Plus Rent Index: " + colr);
                     })
 
                     // fade out tooltip on mouse out
@@ -135,18 +160,6 @@
     });
 
 </script>
-
-<style>
-.chart2 rect {
-  fill: steelblue;
-}
-
-.chart2 text {
-  fill: white;
-  font: 10px sans-serif;
-  text-anchor: end;
-}
-</style>
 
 <div id="groceries-comparison">
 <p>Moving from [Pittsburgh] to [New York]?</p>
