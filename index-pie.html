@@ -180,10 +180,15 @@
     }
 
     function makePie() {
+        d3.select("canvas").remove();
+        d3.select("body")
+            .append("canvas")
+            .attr("width", 500+"px")
+            .attr("height", 500+"px");
         var canvas = document.querySelector("canvas");
         var context = canvas.getContext("2d");
 
-        var r = 150; // radius
+        var r = 100; // radius
         var w = canvas.width;
         var h = canvas.height;
 
