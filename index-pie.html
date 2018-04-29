@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
 	<style type="text/css">
 
 		/* On mouse hover, lighten state color */
@@ -28,12 +28,28 @@
 		body {
 			font: 11px sans-serif;
 		}
+
+        .chart2 rect {
+            fill: steelblue;
+        }
+
+        .chart2 text {
+            fill: white;
+            font: 10px sans-serif;
+            text-anchor: end;
+        }
+        #groceries-comparison {
+            position: fixed;
+            bottom: 0;
+        }
+        canvas {
+            float: right;
+            margin-top: 5em;
+        }
 	</style>
 </head>
 <body>
-<p>Hello world</p>
-
-
+<canvas width="500" height="500"></canvas>
 <script>
     //Width and height of map
     var width = 960;
@@ -55,7 +71,8 @@
     var svg = d3.select("body")
         .append("svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .style("float", "left");
 
     // Append Div for tooltip to SVG
     var div = d3.select("body")
@@ -65,7 +82,7 @@
 
     console.log("load us states");
     // Load GeoJSON data and merge with states data
-    d3.json("us-states.json").then(function(json) {
+    d3.json("us-states.json", function(json) {
 // Bind the data to the SVG and create one path per GeoJSON feature
         svg.selectAll("path")
             .data(json.features)
@@ -80,8 +97,8 @@
 
 
 			// Map the cities
-            d3.csv("26citiesWithLatitudeLongitude.csv").then(function(data) {
-                d3.json("cityPrices.json").then(function(json){
+            d3.csv("26citiesWithLatitudeLongitude.csv", function(data) {
+                d3.json("cityPrices.json", function(json){
                     for (var i = 0; i < data.length; i++) {
                         var city = data[i].City;
                         for (var j = 0; j < json.length; j++) {
@@ -118,36 +135,111 @@
                         div.transition()
                             .duration(200)
                             .style("opacity", .9);
-                        console.log(d3.event.pageX);
-                        console.log(d3.event.pageY);
                         div.text(d.City + ", " + d.State)
                             .style("left", (d3.event.pageX) + "px")
                             .style("top", (d3.event.pageY - 28) + "px");
                     })
 
                     // fade out tooltip on mouse out
-                    .on("mouseout", function(d) {
+                    .on("mouseout", function() {
                         div.transition()
                             .duration(500)
                             .style("opacity", 0);
+                    })
+                    // TODO: how to handle pie chart
+                    .on("click", function(d) {
+                        console.log(d);
+                        d3.csv("cityCostOfLiving.csv", function(data) {
+                            updatePieData(data, d.City);
+                            makePie();
+                        });
                     });
             });
     });
 
+    // Pie chart
+
+//    pieData = [{"label":"one", "value":20},
+//        {"label":"two", "value":50},
+//        {"label":"three", "value":30}];
+    pieData = [];
+
+    function updatePieData(csv, city) {
+        pieData = [];
+        for (var i = 0; i < csv.length; i++) {
+            var city_temp = csv[i].City;
+            if (city === city_temp) {
+                var foodEnt = {"label": "Food and Entertainment", "value": csv[i].FoodEntPercent};
+                var rent = {"label": "Rent", "value": csv[i].RentPercent};
+                var transport = {"label": "Transportation", "value": csv[i].TransportPercent};
+                pieData.push(foodEnt);
+                pieData.push(rent);
+                pieData.push(transport);
+            }
+        }
+    }
+
+    function makePie() {
+        var canvas = document.querySelector("canvas");
+        var context = canvas.getContext("2d");
+
+        var r = 150; // radius
+        var w = canvas.width;
+        var h = canvas.height;
+
+        var colors = ["#d8f5ff", "#b1ebff", "#27c9ff"];
+
+        var arc = d3.arc()              //this will create <path> elements for us using arc data
+            .outerRadius(r)
+            .innerRadius(0)
+            .context(context);
+
+        var arcs = d3.pie()           //this will create arc data for us given a list of values
+            .value(function(d) { return d.value; })
+            (pieData); //we must tell it out to access the value of each element in our data array
+
+        context.translate(r, r);
+        arcs.forEach(function(d, i) {
+            context.beginPath();
+            arc(d);
+            context.fillStyle = colors[i];
+            context.fill()
+        });
+
+        context.beginPath();
+        arcs.forEach(arc);
+        context.lineWidth = 1.5;
+
+        context.beginPath();
+        arcs.forEach(function(d) {
+            var c = arc.centroid(d);
+            context.save();
+            context.translate(c[0], c[1]);
+            context.restore();
+        });
+        context.fillStyle = "#000";
+        context.fill();
+
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.fillStyle = "#000";
+        arcs.forEach(function(d, i) {
+            var c = arc.centroid(d);
+            console.log(c);
+            if (pieData[i].label === "Transportation") {
+                context.fillText(pieData[i].label + ": " +
+                    pieData[i].value + "%", c[0], c[1] - 25);
+            }
+            else {
+                context.fillText(pieData[i].label + ": " +
+                    pieData[i].value + "%", c[0], c[1]);
+            }
+        });
+
+
+    }
+
 </script>
-
-<style>
-.chart2 rect {
-  fill: steelblue;
-}
-
-.chart2 text {
-  fill: white;
-  font: 10px sans-serif;
-  text-anchor: end;
-}
-</style>
-
 <div id="groceries-comparison">
 <p>Moving from [Pittsburgh] to [New York]?</p>
 <select id="inds">
@@ -211,7 +303,7 @@ function getTwoCitiesData(csv,city1,city2){
 // console.log(data2);
 // data2 = [1.1,2.1];
 
-d3.csv("cityCostOfLiving.csv").then(function(data) {
+d3.csv("cityCostOfLiving.csv", function(data) {
     d3.select('#inds')
         .on("change", function () {
             var sect = document.getElementById("inds");
@@ -221,8 +313,8 @@ d3.csv("cityCostOfLiving.csv").then(function(data) {
             console.log(groceries);
 
 //             makeGraph();
-    });
-    });
+        });
+});
 
 
 function makeGraph() {
