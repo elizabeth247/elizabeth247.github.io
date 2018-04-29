@@ -1,27 +1,1 @@
-﻿City,State,Latitude,Longitude
-New York, New York,40.712775,-74.005973
-Los Angeles, California,34.052234,-118.243685
-Chicago, Illinois ,41.878114,-87.629798
-Houston, Texas,29.760427,-95.369803
-Phoenix, Arizona,33.448377,-112.074037
-Philadelphia, Pennsylvania,39.952584,-75.165222
-San Antonio, Texas,29.424122,-98.493628
-San Diego, California,32.715738,-117.161084
-Dallas, Texas,32.776664,-96.796988
-San Jose, California,37.338208,-121.886329
-Austin, Texas,30.267153,-97.743061
-Jacksonville, Florida,30.332184,-81.655651
-Fort Worth, Texas,32.755488,-97.330766
-San Francisco, California,37.774929,-122.419416
-Columbus, Ohio,39.961176,-82.998794
-Charlotte, North Carolina,35.227087,-80.843127
-Indianapolis, Indiana,39.768403,-86.158068
-Seattle, Washington,47.606209,-122.332071
-Denver, Colorado,39.739236,-104.990251
-Washington DC, District Of Columbia,38.907192,-77.036871
-El Paso, Texas,31.761878,-106.485022
-Boston, Massachusetts,42.360082,-71.05888
-Nashville, Tennessee,36.162664,-86.781602
-Detroit, Michigan,42.331427,-83.045754
-Portland, Oregon,45.523062,-122.676482
-Pittsburgh, Pennsylvania ,40.440625,-79.995886
+City,State,Latitude,Longitude,CostOfLivingIdx,CostOfLivingRentIdxNew York, New York,40.712775,-74.005973,100,100Los Angeles, California,34.052234,-118.243685,82.3,75.77Chicago, Illinois ,41.878114,-87.629798,80.16,68.85Houston, Texas,29.760427,-95.369803,70.37,57.7Phoenix, Arizona,33.448377,-112.074037,"66.87	","50.69	"Philadelphia, Pennsylvania,39.952584,-75.165222,83.46,66.4San Antonio, Texas,29.424122,-98.493628,60.92,48.18San Diego, California,32.715738,-117.161084,77.01,69.73Dallas, Texas,32.776664,-96.796988,65.94,54.7San Jose, California,37.338208,-121.886329,"82.87	",82.36Austin, Texas,30.267153,-97.743061,72.46,"61.53	"Jacksonville, Florida,30.332184,-81.655651,73.58,53.66Fort Worth, Texas,32.755488,-97.330766,"67.81	",52.12San Francisco, California,37.774929,-122.419416,"97.84	",106.29Columbus, Ohio,39.961176,-82.998794,69.13,52.92Charlotte, North Carolina,35.227087,-80.843127,"75.35	","58.60	"Indianapolis, Indiana,39.768403,-86.158068,74.72,55.89Seattle, Washington,47.606209,-122.332071,88.04,76.64Denver, Colorado,39.739236,-104.990251,"77.31	",66.07Washington DC, District Of Columbia,38.907192,-77.036871,91.94,"82.95	"El Paso, Texas,31.761878,-106.485022,64,83Boston, Massachusetts,42.360082,-71.05888,"87.05	","83.03	"Nashville, Tennessee,36.162664,-86.781602,71.88,60.23Detroit, Michigan,42.331427,-83.045754,70.2,53.45Portland, Oregon,45.523062,-122.676482,78.45,65.56Pittsburgh, Pennsylvania ,40.440625,-79.995886,78.66,59.54
