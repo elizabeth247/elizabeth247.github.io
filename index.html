@@ -162,20 +162,79 @@
 </script>
 
 <div id="groceries-comparison">
-<p>Moving from [Pittsburgh] to [New York]?</p>
-<select id="inds">
-        <option value="Chicago" selected="selected">Chicago</option>
+<p>
+    Moving from 
+<select id="inds2">
+        <option value="default" disabled="disabled" selected="selected">Select a city</option>
+        <option value="Austin">Austin</option>
+        <option value="Boston">Boston</option>
+        <option value="Charlotte">Charlotte</option>
+        <option value="Chicago">Chicago</option>
+        <option value="Columbus">Columbus</option>
+        <option value="Dallas">Dallas</option>
+        <option value="Denver">Denver</option>
+        <option value="Detroit">Detroit</option>
+        <option value="El Paso">El Paso</option>
+        <option value="Fort Worth">Forth Worth</option>
+        <option value="Houston">Houston</option>
+        <option value="Indianapolis">Indianapolis</option>
+        <option value="Jacksonville">Jacksonville</option>
+        <option value="Los Angeles">Los Angeles</option>
+        <option value="Nashville">Nashville</option>
         <option value="New York">New York</option>
+        <option value="Philadelphia">Philadelphia</option>
+        <option value="Pittsburgh">Pittsburgh</option>
+        <option value="Phoenix">Phoenix</option>
+        <option value="Portland">Austin</option>
         <option value="San Antonio">San Antonio</option>
+        <option value="San Diego">San Diego</option>
+        <option value="San Francisco">San Francisco</option>
+        <option value="San Jose">San Jose</option>
+        <option value="Seattle">Seattle</option>
+        <option value="Washington DC">Washington DC</option>
 </select>
+to
+<select id="inds">
+        <option value="default" disabled="disabled" selected="selected">Select a city</option>
+        <option value="Austin">Austin</option>
+        <option value="Boston">Boston</option>
+        <option value="Charlotte">Charlotte</option>
+        <option value="Chicago">Chicago</option>
+        <option value="Columbus">Columbus</option>
+        <option value="Dallas">Dallas</option>
+        <option value="Denver">Denver</option>
+        <option value="Detroit">Detroit</option>
+        <option value="El Paso">El Paso</option>
+        <option value="Fort Worth">Forth Worth</option>
+        <option value="Houston">Houston</option>
+        <option value="Indianapolis">Indianapolis</option>
+        <option value="Jacksonville">Jacksonville</option>
+        <option value="Los Angeles">Los Angeles</option>
+        <option value="Nashville">Nashville</option>
+        <option value="New York">New York</option>
+        <option value="Philadelphia">Philadelphia</option>
+        <option value="Pittsburgh">Pittsburgh</option>
+        <option value="Phoenix">Phoenix</option>
+        <option value="Portland">Austin</option>
+        <option value="San Antonio">San Antonio</option>
+        <option value="San Diego">San Diego</option>
+        <option value="San Francisco">San Francisco</option>
+        <option value="San Jose">San Jose</option>
+        <option value="Seattle">Seattle</option>
+        <option value="Washington DC">Washington DC</option>
+</select>
+? Click visualize to see how the cost of living changes.
 <input name="visualize" type="button" value="Visualize" onclick="makeGraph()"/>
+</p>
+
+
 <svg class="chart2"></svg>
 
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 
 <script>
-var city1 = "Pittsburgh"; //needs to eventually be assigned from user input
-
+// var city1 = "Pittsburgh"; //needs to eventually be assigned from user input
+// var city2 = "New York"; //needs to eventually be assigned from user input
 
 groceries = [];
 function getTwoCitiesData(csv,city1,city2){
@@ -183,24 +242,38 @@ function getTwoCitiesData(csv,city1,city2){
     for (var i = 0; i < csv.length; i++) {
         var city = csv[i].City;
         if (city === city1){
-            groceries.push(csv[i].Groceries)
+            console.log(csv[i]);
+
+            groceries.push(csv[i].GroceriesRound);
             for (var j = 0; j < csv.length; j++){
                 if (csv[j].City === city2){
-                    groceries.push(csv[j].Groceries)
+                    groceries.push(csv[j].GroceriesRound);
                 }
             }
         }
     }
+    console.log(groceries);
 }
 
-d3.csv("cityCostOfLiving.csv").then(function(data) {
+
+d3.csv("acityCostOfLiving.csv").then(function(data) {
     d3.select('#inds')
         .on("change", function () {
             var sect = document.getElementById("inds");
+            var sect2 = document.getElementById("inds2");
             var section = sect.options[sect.selectedIndex].value;
-
-            getTwoCitiesData(data, city1, section);
+            var section2 = sect2.options[sect2.selectedIndex].value;
+            getTwoCitiesData(data, section2, section);
             console.log(groceries);
+    });
+    d3.select('#inds2')
+    .on("change", function () {
+        var sect = document.getElementById("inds");
+        var sect2 = document.getElementById("inds2");
+        var section = sect.options[sect.selectedIndex].value;
+        var section2 = sect2.options[sect2.selectedIndex].value;
+        getTwoCitiesData(data, section2, section);
+        console.log(groceries);
     });
 });
 
@@ -209,7 +282,8 @@ function makeGraph() {
     var width = 420,
     barHeight = 20;
 
-
+    console.log("begin makegraph");
+    console.log(groceries);
     var x = d3.scaleLinear()
         .domain([0, d3.max(groceries)])
         .range([0, width]);
@@ -219,10 +293,10 @@ function makeGraph() {
         .attr("height", barHeight * groceries.length);
 
     var bar = chart.selectAll("g")
-        .remove()
-        .exit()
+        .remove() //remove old data before entering data!!!!
+        .exit() //remove old data before entering data!!!!
         .data(groceries)
-      .enter().append("g")
+        .enter().append("g")
         .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
 
     bar.append("rect")
@@ -230,12 +304,14 @@ function makeGraph() {
         .attr("width", x)
         .attr("height", barHeight - 1);
 
+
     bar.append("text")
         .attr("x", function(d) { return x(d) - 3; })
         .attr("y", barHeight / 2)
         .attr("dy", ".35em")
         .text(function(d) { return d; });
 }
+
 
 </script>
 
