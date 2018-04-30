@@ -89,7 +89,7 @@
     <h1> Cost of Living in the U.S.</h1>
     <p>Explore the map to learn about the cost of living in the different cities.</p>
 <div id="map"></div>
-<canvas width="500" height="500"></canvas>
+<canvas width="400" height="400"></canvas>
 <div id="groceries-comparison">
         <p>
                 <!-- Moving from [Pittsburgh] to [New York]? -->
@@ -300,8 +300,8 @@
         d3.select("canvas").remove();
         d3.select("body")
             .append("canvas")
-            .attr("width", 500+"px")
-            .attr("height", 500+"px");
+            .attr("width", 400+"px")
+            .attr("height", 400+"px");
         var canvas = document.querySelector("canvas");
         var context = canvas.getContext("2d");
 
@@ -311,7 +311,7 @@
 
         context.textAlign = "center";
         context.font = "20px Avenir";
-        context.fillText(city+", " + state, w/2, 50);
+        context.fillText(city+", " + state, w/2, 40);
         context.font = "14px Avenir";
 
         var colors = ["#d8f5ff", "#b1ebff", "#27c9ff"];
