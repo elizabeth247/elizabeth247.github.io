@@ -1,7 +1,7 @@
 # Cost of Living in the US
 ## Michelle Deng, Yulin Liu, Elizabeth Onstwedder
 
-Interact with it [here]("https://elizabeth247.github.io/")!
+Interact with it [here]("https://elizabeth247.github.io/"): https://elizabeth247.github.io/.
 TODO: Screencast video is here.
 
 Cost of living is often used to compare how expensive it is to live in one city versus another locale (Investopedia). 
@@ -13,4 +13,4 @@ Clicking on any of the red dots will render a pie chart to the right of the map,
 
 Below the map, users can directly compare the average costs of food and entertainment, transport, and rent prices between two cities. 
 
-All of our code can be found in `index.html` and our initial data scraping scripts and data files can be found [here]("https://github.com/mddengo/data-viz-final").
+All of our code can be found in `index.html` and our initial data scraping scripts and data files can be found [here]("https://github.com/mddengo/data-viz-final"): https://goo.gl/HzVBMr.
