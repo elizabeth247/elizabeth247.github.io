@@ -13,4 +13,4 @@ Clicking on any of the red dots will render a pie chart to the right of the map,
 
 Below the map, users can directly compare the average costs of food and entertainment, transport, and rent prices between two cities. 
 
-All of our code can be found in `index.html` and our initial data scraping scripts and data files can be found [here]("https://github.com/mddengo/data-viz-final"): https://goo.gl/HzVBMr.
+All of our code can be found in `index.html`, the data files we used for this visualization are: `26citiesWithLatitudeLongitude.csv`, `cityCostOfLiving.csv`, and `us-states.json`, we cleaned and organized some of our data with a Python script called `dataprocessing.py`, and our initial data scraping scripts and data files can be found [here]("https://github.com/mddengo/data-viz-final"): https://goo.gl/HzVBMr.
