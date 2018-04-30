@@ -1,7 +1,8 @@
 # Cost of Living in the US
 ## Michelle Deng, Yulin Liu, Elizabeth Onstwedder
 
-Interact with it [here]("https://elizabeth247.github.io/"): https://elizabeth247.github.io/.
+https://elizabeth247.github.io/
+
 TODO: Screencast video is here.
 
 Cost of living is often used to compare how expensive it is to live in one city versus another locale (Investopedia). 
