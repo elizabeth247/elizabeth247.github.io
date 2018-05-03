@@ -3,7 +3,7 @@
 
 https://elizabeth247.github.io/
 
-TODO: Screencast video is here.
+Screencast video: https://youtu.be/voQV-pRb7Xw.
 
 Cost of living is often used to compare how expensive it is to live in one city versus another locale (Investopedia). 
 With us graduating and moving to different cities in the country, we hope to develop a tool that helps budget planning by presenting how expenses differ across cities. 
