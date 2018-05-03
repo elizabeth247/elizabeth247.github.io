@@ -172,31 +172,27 @@ limitations under the License.
           };
           for (var i = 0; i < testarr.length; i++){
             var qn = testarr[i];
-            console.log(typeof qn[0]);
-            console.log(qn[0]);
+            // console.log(typeof qn[0]);
+            // console.log(qn[0]);
             var id = qn[0].substring(0,3);
-            console.log(id);
-            console.log(qn[0].substring(3));
+            // console.log(id);
+            // console.log(qn[0].substring(3));
             var val = dict[id];
-            console.log(typeof val);
-            console.log(val);
+            // console.log(typeof val);
+            // console.log(val);
             val.push(qn[0].substring(3));
             // dict[id].push(qn[0].substring(3));
           }
           console.log(dict);
-          // console.log(testarr);
-          // console.log(testarr[0]);
-        //   var range = response.result;
-        //   if (range.values.length > 0) {
-        //     appendPre('Name, Major:');
-        //     for (i = 0; i < range.values.length; i++) {
-        //       var row = range.values[i];
-        //       // Print columns A and E, which correspond to indices 0 and 4.
-        //       appendPre(row[0] + ', ' + row[4]);
-        //     }
-        //   } else {
-        //     appendPre('No data found.');
-        //   }
+          ids = ["id1","id2","id3","id4"];
+          for (var i = 0; i < ids.length; i++){
+            var questions = dict[ids[i]];
+            var randqn = questions[Math.floor(Math.random() * questions.length)];
+            console.log(randqn);
+            //send it to the UI
+          }
+
+          
         }, function(response) {
           appendPre('Error: ' + response.result.error.message);
         });
