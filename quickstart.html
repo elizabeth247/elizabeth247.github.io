@@ -181,12 +181,12 @@ limitations under the License.
       function listMajors2() {
         gapi.client.sheets.spreadsheets.values.append({
           spreadsheetId: '1RpiPJCX_ZoSqpYveG-A2bit89NGOLp0QmxlBQ7i9pIQ',
-          range: 'Sheet1!C:C',
+          range: 'Sheet1!C1:C4',
           majorDimension: 'COLUMNS',
           insertDataOption: 'INSERT_ROWS',
           responseValueRenderOption: 'FORMATTED_VALUE',
           valueInputOption: 'USER_ENTERED',
-          values: [["test2"]],
+          values: [["test5"]],
         }).then(function(response) {
           console.log(response);
           // console.log(response[values]);
