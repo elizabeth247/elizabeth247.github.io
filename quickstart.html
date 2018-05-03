@@ -158,7 +158,10 @@ limitations under the License.
         }).then(function(response) {
           console.log(typeof(response))
           console.log(response);
-          console.log(response.result.values)//.forEach(item => console.log(item))
+          console.log(response.result.values);//.forEach(item => console.log(item))
+          var testarr = response.result.values;
+          console.log(testarr);
+          console.log(testarr[0]);
         //   var range = response.result;
         //   if (range.values.length > 0) {
         //     appendPre('Name, Major:');
