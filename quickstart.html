@@ -116,7 +116,7 @@ limitations under the License.
           authorizeButton.style.display = 'none';
           signoutButton.style.display = 'block';
           getQuestions();
-          // postQuestion();
+          postQuestion("questiontest2");
         } else {
           authorizeButton.style.display = 'block';
           signoutButton.style.display = 'none';
@@ -198,7 +198,7 @@ limitations under the License.
         });
       }
 
-      function postQuestion() {
+      function postQuestion(userqn) {
         gapi.client.sheets.spreadsheets.values.append({
           spreadsheetId: '1RpiPJCX_ZoSqpYveG-A2bit89NGOLp0QmxlBQ7i9pIQ',
           range: 'Sheet1!A:A',
@@ -206,7 +206,7 @@ limitations under the License.
           insertDataOption: 'INSERT_ROWS',
           responseValueRenderOption: 'FORMATTED_VALUE',
           valueInputOption: 'USER_ENTERED',
-          values: [["test5"]],
+          values: [[qnToAdd]],
         }).then(function(response) {
           console.log(response);
           // console.log(response[values]);
