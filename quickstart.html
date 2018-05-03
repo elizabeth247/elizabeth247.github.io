@@ -156,8 +156,9 @@ limitations under the License.
           spreadsheetId: '1RpiPJCX_ZoSqpYveG-A2bit89NGOLp0QmxlBQ7i9pIQ',
           range: 'Sheet1!A:A',
         }).then(function(response) {
+          console.log(typeof(response))
           console.log(response);
-          console.log(response[values]);
+          console.log(response.result.values)//.forEach(item => console.log(item))
         //   var range = response.result;
         //   if (range.values.length > 0) {
         //     appendPre('Name, Major:');
