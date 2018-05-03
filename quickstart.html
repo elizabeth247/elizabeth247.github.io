@@ -153,17 +153,34 @@ limitations under the License.
        * Print the names and majors of students in a sample spreadsheet:
        * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
        */
+      
+
       function getQuestions() {
         gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: '1RpiPJCX_ZoSqpYveG-A2bit89NGOLp0QmxlBQ7i9pIQ',
           range: 'Sheet1!A:A',
         }).then(function(response) {
-          console.log(typeof(response))
-          console.log(response);
+          // console.log(response);
           console.log(response.result.values);//.forEach(item => console.log(item))
           var testarr = response.result.values;
-          console.log(testarr);
-          console.log(testarr[0]);
+          var topicQns = [];
+          var dict = {
+            "id1": [],
+            "id2": [],
+            "id3" : [],
+            "id4" : []
+          };
+          for (int i = 0; i < testarr.length; i++){
+            var qn = testarr[i];
+            console.log(qn);
+            var id = qn.substring(0,3);
+            console.log(id);
+            console.log(qn.substring(3));
+            dict[id].push(qn.substring(3));
+          }
+          console.log(dict);
+          // console.log(testarr);
+          // console.log(testarr[0]);
         //   var range = response.result;
         //   if (range.values.length > 0) {
         //     appendPre('Name, Major:');
@@ -183,7 +200,7 @@ limitations under the License.
       function postQuestion() {
         gapi.client.sheets.spreadsheets.values.append({
           spreadsheetId: '1RpiPJCX_ZoSqpYveG-A2bit89NGOLp0QmxlBQ7i9pIQ',
-          range: 'Sheet1!C1:C5',
+          range: 'Sheet1!A:A',
           majorDimension: 'COLUMNS',
           insertDataOption: 'INSERT_ROWS',
           responseValueRenderOption: 'FORMATTED_VALUE',
