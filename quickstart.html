@@ -177,7 +177,10 @@ limitations under the License.
             var id = qn[0].substring(0,3);
             console.log(id);
             console.log(qn[0].substring(3));
-            dict[id].push(qn[0].substring(3));
+            var val = dict[id];
+            console.log(typeof val);
+            console.log(val);
+            // dict[id].push(qn[0].substring(3));
           }
           console.log(dict);
           // console.log(testarr);
