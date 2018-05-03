@@ -172,11 +172,12 @@ limitations under the License.
           };
           for (var i = 0; i < testarr.length; i++){
             var qn = testarr[i];
-            console.log(qn);
-            var id = qn.substring(0,3);
+            console.log(typeof qn[0]);
+            console.log(qn[0]);
+            var id = qn[0].substring(0,3);
             console.log(id);
-            console.log(qn.substring(3));
-            dict[id].push(qn.substring(3));
+            console.log(qn[0].substring(3));
+            dict[id].push(qn[0].substring(3));
           }
           console.log(dict);
           // console.log(testarr);
