@@ -113,7 +113,8 @@ limitations under the License.
         if (isSignedIn) {
           authorizeButton.style.display = 'none';
           signoutButton.style.display = 'block';
-          listMajors();
+          listMajors2();
+          // listMajors();
         } else {
           authorizeButton.style.display = 'block';
           signoutButton.style.display = 'none';
@@ -157,6 +158,33 @@ limitations under the License.
         }).then(function(response) {
           console.log(response);
           console.log(response[values]);
+        //   var range = response.result;
+        //   if (range.values.length > 0) {
+        //     appendPre('Name, Major:');
+        //     for (i = 0; i < range.values.length; i++) {
+        //       var row = range.values[i];
+        //       // Print columns A and E, which correspond to indices 0 and 4.
+        //       appendPre(row[0] + ', ' + row[4]);
+        //     }
+        //   } else {
+        //     appendPre('No data found.');
+        //   }
+        }, function(response) {
+          appendPre('Error: ' + response.result.error.message);
+        });
+      }
+
+      function listMajors2() {
+        gapi.client.sheets.spreadsheets.values.append({
+          spreadsheetId: '1RpiPJCX_ZoSqpYveG-A2bit89NGOLp0QmxlBQ7i9pIQ',
+          range: 'Sheet1!A:A',
+          insertDataOption: 'INSERT_ROWS',
+          responseValueRenderOption: 'FORMATTED_VALUE',
+          valueInputOption: 'USER_ENTERED',
+          values: "test2",
+        }).then(function(response) {
+          console.log(response);
+          // console.log(response[values]);
         //   var range = response.result;
         //   if (range.values.length > 0) {
         //     appendPre('Name, Major:');
