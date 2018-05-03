@@ -113,8 +113,8 @@ limitations under the License.
         if (isSignedIn) {
           authorizeButton.style.display = 'none';
           signoutButton.style.display = 'block';
-          // listMajors2();
           listMajors();
+          listMajors2();
         } else {
           authorizeButton.style.display = 'block';
           signoutButton.style.display = 'none';
@@ -185,7 +185,7 @@ limitations under the License.
           insertDataOption: 'INSERT_ROWS',
           responseValueRenderOption: 'FORMATTED_VALUE',
           valueInputOption: 'USER_ENTERED',
-          values: "test2",
+          values: [["test2"]],
         }).then(function(response) {
           console.log(response);
           // console.log(response[values]);
